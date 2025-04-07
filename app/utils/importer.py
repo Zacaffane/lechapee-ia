@@ -10,9 +10,30 @@ def download_book(gutenberg_id):
     else:
         raise Exception("Erreur de téléchargement")
 
+def clean_gutenberg_text(text):
+    # Supprimer l'en-tête et le pied Project Gutenberg
+    start_marker = "*** START OF THIS PROJECT GUTENBERG EBOOK"
+    end_marker = "*** END OF THIS PROJECT GUTENBERG EBOOK"
+    start = text.find(start_marker)
+    end = text.find(end_marker)
+
+    if start != -1 and end != -1:
+        text = text[start + len(start_marker):end]
+    return text.strip()
+
 def split_into_chapters(text):
-    chapters = re.split(r'\n\s*CHAPTER [^\n]+\n', text)
-    return chapters[1:] if len(chapters) > 1 else [text]
+    # Trouver tous les titres de chapitres et les index de début
+    matches = list(re.finditer(r'CHAPTER\s+[IVXLC0-9]+', text))
+    chapters = []
+
+    for i in range(len(matches)):
+        start = matches[i].start()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        chapter_text = text[start:end].strip()
+        chapters.append(chapter_text)
+
+    return chapters
+
 
 def save_chapters(chapters, book_id):
     os.makedirs("data", exist_ok=True)
@@ -23,6 +44,8 @@ def save_chapters(chapters, book_id):
 
 if __name__ == "__main__":
     text = download_book(1342)  # Pride and Prejudice
-    chapters = split_into_chapters(text)
+    cleaned = clean_gutenberg_text(text)
+    chapters = split_into_chapters(cleaned)
     save_chapters(chapters, "pride")
     print(f"{len(chapters)} chapitres sauvegardés.")
+    print("\nEXTRAIT DU CHAPITRE 0 :\n", chapters[0][:300])
