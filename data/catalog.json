@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pride",
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "gutenberg_id": 1342
+  },
+  {
+    "id": "emma",
+    "title": "Emma",
+    "author": "Jane Austen",
+    "gutenberg_id": 158
+  },
+  {
+    "id": "sherlock",
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle",
+    "gutenberg_id": 1661
+  },
+  {
+    "id": "phèdre_(racine)",
+    "title": "Phèdre (Racine)",
+    "author": "Auteur inconnu (Wikisource)",
+    "source": "Wikisource"
+  },
+  {
+    "id": "phèdre_(racine)",
+    "title": "Phèdre (Racine)",
+    "author": "Auteur inconnu (Wikisource)",
+    "source": "Wikisource"
+  }
+]
